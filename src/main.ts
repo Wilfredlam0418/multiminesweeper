@@ -1,3 +1,4 @@
+import "./fonts.css";
 import { App } from "./ui/app";
 
 async function main(): Promise<void> {
