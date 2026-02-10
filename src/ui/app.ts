@@ -109,7 +109,7 @@ export class App {
 
     const helpCanvas = document.getElementById("btn-help") as HTMLCanvasElement;
     if (helpCanvas) {
-      const btn = new ToolbarButton(helpCanvas, "help", () => window.open("https://github.com/Napero/multiminesweeper", "_blank"));
+      const btn = new ToolbarButton(helpCanvas, "help", () => this.openHelp());
       await btn.ready;
     }
 
@@ -176,7 +176,23 @@ export class App {
     });
 
     this.newGame();
+    // Global keyboard: ? opens help, Esc closes
+    window.addEventListener("keydown", this.onGlobalKey);
   }
+
+  private onGlobalKey = (e: KeyboardEvent): void => {
+    // Ignore if typing in an input
+    const el = document.activeElement as HTMLElement | null;
+    if (el && (el.tagName === "INPUT" || el.tagName === "TEXTAREA")) return;
+    if (e.key === "?") {
+      e.preventDefault();
+      this.openHelp();
+    } else if (e.key === "Escape") {
+      this.closeHelp();
+      this.closeCustomModal();
+      this.closeSettingsDropdown();
+    }
+  };
 
   private toggleSettingsDropdown(): void {
     document.getElementById("settings-dropdown")?.classList.toggle("open");
@@ -192,6 +208,24 @@ export class App {
 
   private closeCustomModal(): void {
     document.getElementById("custom-overlay")?.classList.remove("open");
+  }
+
+  private openHelp(): void {
+    document.getElementById("help-overlay")?.classList.add("open");
+    // close button
+    const btn = document.getElementById("help-close");
+    if (btn) btn.addEventListener("click", () => this.closeHelp());
+    // click outside to close
+    const overlay = document.getElementById("help-overlay");
+    if (overlay) {
+      overlay.addEventListener("click", (ev) => {
+        if (ev.target === overlay) this.closeHelp();
+      });
+    }
+  }
+
+  private closeHelp(): void {
+    document.getElementById("help-overlay")?.classList.remove("open");
   }
 
   newGame(config?: Partial<GameConfig>): void {
@@ -233,6 +267,16 @@ export class App {
         onCycleMarker: (r, c) => {
           this.startTimer();
           this.game.cycleMarker(r, c);
+          this.render();
+        },
+        onSetMarker: (r, c, value) => {
+          this.startTimer();
+          const cell = this.game.cell(r, c);
+          if (cell.opened) return;
+          // clamp to allowed range
+          const max = this.game.config.maxMinesPerCell;
+          const v = Math.max(0, Math.min(max, value));
+          cell.markerCount = v;
           this.render();
         },
         onSpace: (r, c) => {
