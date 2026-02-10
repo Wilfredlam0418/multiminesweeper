@@ -235,6 +235,17 @@ export class App {
           this.game.cycleMarker(r, c);
           this.render();
         },
+        onSpace: (r, c) => {
+          this.startTimer();
+          const cell = this.game.cell(r, c);
+          if (cell.opened) {
+            this.game.chordOpen(r, c);
+            if (this.game.status !== GameStatus.Playing) this.stopTimer();
+          } else {
+            this.game.cycleMarker(r, c);
+          }
+          this.render();
+        },
         onChord: (r, c) => {
           this.startTimer();
           this.game.chordOpen(r, c);
