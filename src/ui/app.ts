@@ -120,8 +120,7 @@ export class App {
         if (preset === "custom") {
           this.openCustomModal();
         } else if (PRESETS[preset]) {
-          this.config = { ...PRESETS[preset], seed: Date.now() };
-          this.newGame();
+          this.newGame({ ...PRESETS[preset], seed: Date.now() });
         }
       });
     });
@@ -137,9 +136,9 @@ export class App {
     // Custom modal
     document.getElementById("custom-cancel")?.addEventListener("click", () => this.closeCustomModal());
     document.getElementById("custom-ok")?.addEventListener("click", () => {
-      this.config = readConfigFromModal();
+      const cfg = readConfigFromModal();
       this.closeCustomModal();
-      this.newGame();
+      this.newGame(cfg);
     });
 
     // Density slider label sync
@@ -196,6 +195,9 @@ export class App {
 
   newGame(config?: Partial<GameConfig>): void {
     if (config) this.config = config;
+    // Always generate a fresh seed for replays (smiley button);
+    // explicit configs from presets/modal already have their own seed.
+    if (!config) this.config.seed = Date.now();
     if (this.input) this.input.detach();
 
     this.game = new Game(this.config);
