@@ -10,6 +10,7 @@ import { drawFlag, drawBomb } from "./fallback";
 const PRESETS: Record<string, Partial<GameConfig>> = {
   beginner:     { rows: 9,  cols: 9,  minesTotal: 30,  maxMinesPerCell: 4, density: 0.7 },
   intermediate: { rows: 16, cols: 16, minesTotal: 60,  maxMinesPerCell: 5, density: 0.6 },
+  hard:         { rows: 16, cols: 30, minesTotal: 170, maxMinesPerCell: 6, density: 0.6 },
   expert:       { rows: 16, cols: 30, minesTotal: 250, maxMinesPerCell: 6, density: 0.6 },
   nightmare:    { rows: 20, cols: 35, minesTotal: 450, maxMinesPerCell: 6, density: 0.45 },
 };
