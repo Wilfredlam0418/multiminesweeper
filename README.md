@@ -14,9 +14,9 @@ Three presets (Beginner, Intermediate, Expert) and a fully custom mode with conf
 
 ## Controls
 
-- **Left-click** — open a cell. If it's already open, chord (open neighbours if flags match the number).
-- **Right-click** — cycle the flag on a closed cell: 1 → 2 → … → 6 → clear.
-- **Middle-click** — chord directly.
+- **Left-click**: open a cell. If it's already open, chord (open neighbours if flags match the number).
+- **Right-click**: cycle the flag on a closed cell: 1 -> 2 -> ... -> 6 -> clear.
+- **Middle-click**: chord directly.
 
 ## Toolbar
 
@@ -24,7 +24,7 @@ Three presets (Beginner, Intermediate, Expert) and a fully custom mode with conf
 - **Help**: links to the GitHub repo.
 - **Smiley**: click to start a new game.
 - **Timer**: starts on your first click.
-- **Hint**: toggles hint mode. While active, hovering the board shows a dark overlay on the 3×3 area that will be revealed. Click to reveal it — mines get flagged, safe cells get opened.
+- **Hint**: toggles hint mode. While active, hovering the board shows a dark overlay on the 3×3 area that will be revealed. Click to reveal it, mines get flagged, safe cells get opened.
 - **Give Up**: reveals the entire board.
 
 ## Tech
