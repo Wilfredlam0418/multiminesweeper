@@ -143,6 +143,28 @@
       cursor: pointer;
     }
 
+    /* Help modal shares styles with custom modal */
+    #help-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.35);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+    }
+    #help-overlay.open { display: flex; }
+    #help-panel {
+      background: #c0c0c0;
+      border: 3px outset #fff;
+      padding: 14px 18px;
+      min-width: 320px;
+      font-family: "Pixelated MS Sans Serif", Arial, sans-serif;
+      -webkit-font-smoothing: none;
+    }
+    #help-panel h3 { font-size: 13px; margin-bottom:10px; }
+    #help-panel button { padding: 4px 10px; cursor: pointer; }
+
     #game-container {
       border: 3px outset #fff;
       background: #c0c0c0;
@@ -216,6 +238,28 @@
       <div class="btn-row">
         <button id="custom-cancel">Cancel</button>
         <button id="custom-ok">Start</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Help modal -->
+  <div id="help-overlay">
+    <div id="help-panel">
+      <h3>How to play</h3>
+      <p style="max-width:360px; margin-bottom:8px;">Multi-Minesweeper: each cell can contain 0–6 mines. Reveal safe cells, mark suspected mines, and chord numbers when markers match the hint to open neighbours.</p>
+      <h4 style="margin:6px 0 4px 0;">Controls</h4>
+      <ul style="list-style:none; padding-left:0; margin:0 0 8px 0;">
+        <li><strong>Left-click / Tap:</strong> Open a cell</li>
+        <li><strong>Right-click:</strong> Cycle marker state (0→1→…→6→0)</li>
+        <li><strong>Middle-click / Tap number:</strong> Chord (open neighbours when marker sum matches number)</li>
+        <li><strong>Space:</strong> When hovering: cycles marker on covered cell, chords on opened number</li>
+        <li><strong>Mobile (long-press):</strong> Long-press a covered cell to enter marking; drag up/down to set 1–6; release to confirm</li>
+      </ul>
+      <div style="display:flex; gap:8px; justify-content:space-between; align-items:center; margin-top:8px;">
+        <a href="https://github.com/Napero/multiminesweeper" target="_blank" style="text-decoration:none; color:#000080;">Contribute or give me a star on GitHub! :D</a>
+        <div style="display:flex; gap:8px;">
+          <button id="help-close">Close</button>
+        </div>
       </div>
     </div>
   </div>
